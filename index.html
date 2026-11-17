@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="Tf7ZnBOo_rHV09Cia_Inq7fiDCZ38MN7zSbuCVupGOY" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Un annuaire de ressources gratuites et légales pour apprendre, créer et découvrir.">
+  <title>Libre & utile — ressources gratuites et légales</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101311;
+      --panel: #171c19;
+      --panel-hover: #1d2520;
+      --text: #eff5f0;
+      --muted: #9aa89d;
+      --accent: #a8ed75;
+      --accent-dark: #1b321d;
+      --border: #29332c;
+      --sidebar-width: 245px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 70% -20%, #26382a 0, transparent 45%),
+        var(--bg);
+      color: var(--text);
+      font: 15px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+
+    /* Boîte sécurisée pour la publicité */
+    .ad-container { 
+      margin: 25px 0; 
+      min-height: 100px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      background: #171c19; 
+      border: 1px dashed var(--border); 
+      border-radius: 12px; 
+      overflow: hidden;
+    }
+
+    .mobile-header {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #111612ed;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .menu-button {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 11px;
+      color: var(--text);
+      background: var(--panel);
+      cursor: pointer;
+    }
+
+    .layout { min-height: 100vh; }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      position: fixed;
+      inset: 0 auto 0 0;
+      padding: 28px 18px;
+      overflow-y: auto;
+      background: #121714;
+      border-right: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      gap: 11px;
+      align-items: center;
+      margin: 0 8px 32px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #152115;
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .brand-name { font-size: 17px; font-weight: 800; letter-spacing: -.4px; }
+    .brand-sub { color: var(--muted); font-size: 11px; }
+
+    .nav-label {
+      padding: 0 10px;
+      margin: 22px 0 8px;
+      color: #77847a;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .category-nav { display: grid; gap: 4px; }
+
+    .category-nav button {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background: transparent;
+      color: #c3cec5;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .category-nav button:hover,
+    .category-nav button.active {
+      border-color: #314033;
+      background: var(--accent-dark);
+      color: var(--accent);
+    }
+
+    .nav-count {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .sidebar-note {
+      margin: 28px 4px 0;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .sidebar-note strong { color: var(--text); }
+
+    .main {
+      max-width: 1400px;
+      margin-left: var(--sidebar-width);
+      padding: 42px clamp(22px, 5vw, 70px) 60px;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 35px;
+    }
+
+    .legal-pill, .tag, .free-pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #171d19;
+      color: #c7d3c8;
+      font-size: 12px;
+      padding: 5px 10px;
+    }
+
+    .legal-pill { gap: 7px; }
+    .legal-pill span { color: var(--accent); }
+
+    .hero { max-width: 780px; margin-bottom: 30px; }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 10px 0 12px;
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1.04;
+      letter-spacing: -.055em;
+    }
+
+    h1 em { color: var(--accent); font-style: normal; }
+
+    .hero p {
+      max-width: 660px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 10px;
+      max-width: 850px;
+      margin: 26px 0 16px;
+    }
+
+    .search-wrap { position: relative; flex: 1; }
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    input[type="search"], select {
+      min-height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+      background: #171c19;
+      color: var(--text);
+    }
+
+    input[type="search"] {
+      width: 100%;
+      padding: 0 16px 0 43px;
+    }
+
+    select { padding: 0 35px 0 13px; cursor: pointer; }
+
+    input:focus, select:focus {
+      border-color: #78b953;
+      box-shadow: 0 0 0 3px #a8ed751c;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0 24px;
+    }
+
+    .filter-chip {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 12px;
+      background: transparent;
+      color: #b8c4ba;
+      cursor: pointer;
+    }
+
+    .filter-chip:hover, .filter-chip.active {
+      border-color: #53734b;
+      background: var(--accent-dark);
+      color: var(--accent);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 30px 0 15px;
+    }
+
+    .section-head h2 { margin: 0; font-size: 21px; letter-spacing: -.03em; }
+    .result-count { color: var(--muted); font-size: 13px; }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      display: flex;
+      min-height: 220px;
+      flex-direction: column;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: linear-gradient(145deg, #191f1b, #151a17);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #465b49;
+      background: var(--panel-hover);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .resource-icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #202822;
+      font-size: 21px;
+    }
+
+    .free-pill { color: var(--accent); border-color: #334d32; }
+
+    .card h3 { margin: 15px 0 5px; font-size: 17px; }
+    .card p { margin: 0 0 14px; color: var(--muted); font-size: 13px; }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 6px;
+    }
+
+    .tag { padding: 4px 8px; font-size: 11px; }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      margin-top: 15px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    .empty-state {
+      display: none;
+      padding: 36px;
+      border: 1px dashed #3a463d;
+      border-radius: 14px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .notice {
+      margin-top: 27px;
+      padding: 15px 17px;
+      border: 1px solid #3b493b;
+      border-radius: 12px;
+      background: #182019;
+      color: #b9c6ba;
+      font-size: 12px;
+    }
+
+    .notice strong { color: var(--accent); }
+
+    footer {
+      margin-top: 35px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 1080px) {
+      .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      .mobile-header { display: flex; }
+      .sidebar {
+        display: none;
+        top: 58px;
+        width: min(88vw, 310px);
+        z-index: 10;
+        box-shadow: 20px 0 50px #0008;
+      }
+      .sidebar.open { display: block; }
+      .main { margin-left: 0; padding: 30px 17px 42px; }
+      .topline { display: none; }
+      .hero p { font-size: 15px; }
+      .search-row { flex-direction: column; }
+      select { width: 100%; }
+      .resource-grid { grid-template-columns: 1fr; }
+      .card { min-height: 195px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mobile-header">
+    <a class="brand" href="#" aria-label="Libre et utile, accueil" style="margin:0">
+      <span class="brand-mark">L</span>
+      <span>
+        <span class="brand-name">Libre & utile</span><br>
+        <span class="brand-sub">Ressources ouvertes</span>
+      </span>
+    </a>
+    <button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="sidebar">
+      ☰ <span class="sr-only">Ouvrir le menu</span>
+    </button>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Libre et utile, accueil">
+        <span class="brand-mark">L</span>
+        <span>
+          <span class="brand-name">Libre & utile</span><br>
+          <span class="brand-sub">Ressources ouvertes</span>
+        </span>
+      </a>
+
+      <div class="nav-label">Explorer</div>
+      <nav class="category-nav" id="categoryNav" aria-label="Catégories"></nav>
+
+      <div class="sidebar-note">
+        <strong>Un annuaire, pas un hébergeur.</strong><br>
+        Les ressources restent sur leurs sites d’origine. Consulte leurs licences et conditions d’utilisation.
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topline">
+        <span class="legal-pill"><span>●</span> Sélection de ressources gratuites et légales</span>
+      </div>
+
+      <section class="hero">
+        <div class="eyebrow">Le bon lien, sans détour</div>
+        <h1>Des ressources utiles.<br><em>Ouvertes à tous.</em></h1>
+        <p>
+          Un petit annuaire pour apprendre, créer et découvrir avec des outils
+          et contenus accessibles gratuitement depuis leurs sources officielles.
+        </p>
+      </section>
+
+      <!-- BANNIÈRE PUBLICITAIRE SÉCURISÉE -->
+      <div class="ad-container">
+        <script async="async" data-cfasync="false" src="https://bicea.org/21/4a134ee4b02791e8f24570cdbe298f44"></script>
+        <div id="container-4a134ee4b02791e8f24570cdbe298f44"></div>
+      </div>
+
+      <div class="search-row">
+        <label class="search-wrap">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search" placeholder="Rechercher un outil, un sujet…" aria-label="Rechercher une ressource">
+        </label>
+
+        <select id="languageFilter" aria-label="Filtrer par langue">
+          <option value="">Toutes les langues</option>
+          <option value="Français">Français</option>
+          <option value="Anglais">Anglais</option>
+          <option value="Multilingue">Multilingue</option>
+        </select>
+
+        <select id="levelFilter" aria-label="Filtrer par niveau">
+          <option value="">Tous les niveaux</option>
+          <option value="Débutant">Débutant</option>
+          <option value="Intermédiaire">Intermédiaire</option>
+          <option value="Tous niveaux">Tous niveaux</option>
+        </select>
+      </div>
+
+      <div class="filters" id="categoryChips" aria-label="Filtrer par catégorie"></div>
+
+      <section>
+        <div class="section-head">
+          <h2 id="sectionTitle">Toutes les ressources</h2>
+          <span class="result-count" id="resultCount" aria-live="polite"></span>
+        </div>
+
+        <div class="resource-grid" id="resourceGrid"></div>
+        <div class="empty-state" id="emptyState">
+          Aucune ressource ne correspond à ta recherche. Essaie un autre mot ou enlève un filtre.
+        </div>
+      </section>
+
+      <div class="notice">
+        <strong>À vérifier avant chaque usage :</strong>
+        « gratuit » ne signifie pas toujours « libre de droits ». Pour les livres et médias,
+        vérifie la licence de l’œuvre précise et les règles applicables dans ton pays.
+      </div>
+
+      <footer>
+        Prototype indépendant · Les noms et marques appartiennent à leurs propriétaires.
+        Les liens externes s’ouvrent dans un nouvel onglet.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const resources = [
+      // --- LES 5 RESSOURCES D'ORIGINE ---
+      {
+        name: "MDN Web Docs", category: "Apprendre", icon: "📘",
+        description: "Guides et tutoriels pour apprendre les bases du développement web.",
+        language: "Français", level: "Débutant", tags: ["HTML", "CSS", "JavaScript"],
+        url: "https://developer.mozilla.org/fr/docs/Learn_web_development"
+      },
+      {
+        name: "GIMP", category: "Créer", icon: "🎨",
+        description: "Éditeur d’images libre et gratuit pour retoucher et créer des visuels.",
+        language: "Multilingue", level: "Tous niveaux", tags: ["Image", "Logiciel libre"],
+        url: "https://www.gimp.org/"
+      },
+      {
+        name: "Blender", category: "Créer", icon: "🧊",
+        description: "Outil libre de création 3D, d’animation et de rendu.",
+        language: "Multilingue", level: "Intermédiaire", tags: ["3D", "Animation"],
+        url: "https://www.blender.org/download/"
+      },
+      {
+        name: "Project Gutenberg", category: "Lire", icon: "📚",
+        description: "Bibliothèque de livres électroniques gratuits, à lire en ligne ou télécharger.",
+        language: "Anglais", level: "Tous niveaux", tags: ["Livres", "Domaine public"],
+        url: "https://www.gutenberg.org/"
+      },
+      {
+        name: "Wikimedia Commons", category: "Images & médias", icon: "🖼️",
+        description: "Médias librement réutilisables selon la licence indiquée sur chaque fichier.",
+        language: "Multilingue", level: "Tous niveaux", tags: ["Images", "Licences"],
+        url: "https://commons.wikimedia.org/wiki/Commons:Free_media_resources/Photography/fr"
+      },
+      // --- LES 15 NOUVELLES RESSOURCES ---
+      {
+        name: "OpenClassrooms", category: "Apprendre", icon: "🎓",
+        description: "Cours en ligne gratuits et certifiants dans de nombreux domaines.",
+        language: "Français", level: "Débutant", tags: ["Cours", "Formation"],
+        url: "https://openclassrooms.com/"
+      },
+      {
+        name: "Khan Academy", category: "Apprendre", icon: "🧮",
+        description: "Cours gratuits en mathématiques, sciences, économie et bien plus.",
+        language: "Français", level: "Tous niveaux", tags: ["Éducation", "Sciences"],
+        url: "https://fr.khanacademy.org/"
+      },
+      {
+        name: "Figma", category: "Créer", icon: "📐",
+        description: "Outil de design d'interface collaboratif, gratuit pour les particuliers.",
+        language: "Multilingue", level: "Intermédiaire", tags: ["Design", "UI/UX"],
+        url: "https://www.figma.com/"
+      },
+      {
+        name: "Canva", category: "Créer", icon: "🖌️",
+        description: "Création de visuels, présentations et affiches avec des modèles gratuits.",
+        language: "Multilingue", level: "Débutant", tags: ["Design", "Visuel"],
+        url: "https://www.canva.com/"
+      },
+      {
+        name: "Audacity", category: "Créer", icon: "🎵",
+        description: "Logiciel libre pour enregistrer et éditer de l'audio.",
+        language: "Multilingue", level: "Intermédiaire", tags: ["Audio", "Logiciel libre"],
+        url: "https://www.audacityteam.org/"
+      },
+      {
+        name: "Inkscape", category: "Créer", icon: "✒️",
+        description: "Éditeur de graphiques vectoriels libre, alternative gratuite à Illustrator.",
+        language: "Multilingue", level: "Intermédiaire", tags: ["Vectoriel", "Design"],
+        url: "https://inkscape.org/fr/"
+      },
+      {
+        name: "Krita", category: "Créer", icon: "🖍️",
+        description: "Logiciel de peinture numérique libre, conçu pour les artistes et illustrateurs.",
+        language: "Multilingue", level: "Tous niveaux", tags: ["Peinture", "Dessin"],
+        url: "https://krita.org/fr/"
+      },
+      {
+        name: "Wikipédia", category: "Lire", icon: "🌐",
+        description: "L'encyclopédie libre et collaborative, une source de connaissances infinie.",
+        language: "Multilingue", level: "Tous niveaux", tags: ["Encyclopédie", "Recherche"],
+        url: "https://fr.wikipedia.org/"
+      },
+      {
+        name: "Internet Archive", category: "Lire", icon: "🏛️",
+        description: "Bibliothèque numérique de textes, audio, vidéos et sites web archivés.",
+        language: "Anglais", level: "Tous niveaux", tags: ["Archives", "Domaine public"],
+        url: "https://archive.org/"
+      },
+      {
+        name: "OpenStreetMap", category: "Apprendre", icon: "🗺️",
+        description: "La carte du monde libre, construite par une communauté de contributeurs.",
+        language: "Multilingue", level: "Tous niveaux", tags: ["Cartographie", "Données"],
+        url: "https://www.openstreetmap.org/"
+      },
+      {
+        name: "Unsplash", category: "Images & médias", icon: "📸",
+        description: "Des milliers de photos haute résolution gratuites pour vos projets.",
+        language: "Anglais", level: "Tous niveaux", tags: ["Photos", "Gratuit"],
+        url: "https://unsplash.com/"
+      },
+      {
+        name: "Pexels", category: "Images & médias", icon: "🎥",
+        description: "Photos et vidéos gratuites à utiliser librement dans vos créations.",
+        language: "Multilingue", level: "Tous niveaux", tags: ["Vidéos", "Photos"],
+        url: "https://www.pexels.com/fr-fr/"
+      },
+      {
+        name: "Pixabay", category: "Images & médias", icon: "🖼️",
+        description: "Plus de 2 millions d'images, illustrations et vidéos libres de droits.",
+        language: "Multilingue", level: "Tous niveaux", tags: ["Images", "Vidéos"],
+        url: "https://pixabay.com/fr/"
+      },
+      {
+        name: "Freesound", category: "Images & médias", icon: "🔊",
+        description: "Base de données collaborative d'échantillons audio et d'effets sonores gratuits.",
+        language: "Anglais", level: "Tous niveaux", tags: ["Audio", "Sons"],
+        url: "https://freesound.org/"
+      },
+      {
+        name: "Open Culture", category: "Lire", icon: "🎭",
+        description: "La meilleure collection gratuite de médias culturels et éducatifs sur le web.",
+        language: "Anglais", level: "Tous niveaux", tags: ["Culture", "Éducation"],
+        url: "https://www.openculture.com/"
+      }
+    ];
+
+    const categories = [
+      { name: "Toutes", icon: "✦" },
+      { name: "Apprendre", icon: "📖" },
+      { name: "Créer", icon: "🛠️" },
+      { name: "Lire", icon: "📚" },
+      { name: "Images & médias", icon: "🖼️" }
+    ];
+
+    let activeCategory = "Toutes";
+
+    const grid = document.getElementById("resourceGrid");
+    const searchInput = document.getElementById("searchInput");
+    const languageFilter = document.getElementById("languageFilter");
+    const levelFilter = document.getElementById("levelFilter");
+    const categoryNav = document.getElementById("categoryNav");
+    const categoryChips = document.getElementById("categoryChips");
+    const resultCount = document.getElementById("resultCount");
+    const emptyState = document.getElementById("emptyState");
+    const sectionTitle = document.getElementById("sectionTitle");
+    const sidebar = document.getElementById("sidebar");
+    const menuButton = document.getElementById("menuButton");
+
+    function renderCategories() {
+      categoryNav.innerHTML = "";
+      categoryChips.innerHTML = "";
+
+      categories.forEach(category => {
+        const count = category.name === "Toutes"
+          ? resources.length
+          : resources.filter(item => item.category === category.name).length;
+
+        const navButton = document.createElement("button");
+        navButton.type = "button";
+        navButton.className = activeCategory === category.name ? "active" : "";
+        navButton.innerHTML =
+          `<span aria-hidden="true">${category.icon}</span>
+           <span>${category.name}</span>
+           <span class="nav-count">${count}</span>`;
+        navButton.addEventListener("click", () => chooseCategory(category.name));
+        categoryNav.appendChild(navButton);
+
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = `filter-chip ${activeCategory === category.name ? "active" : ""}`;
+        chip.textContent = category.name;
+        chip.addEventListener("click", () => chooseCategory(category.name));
+        categoryChips.appendChild(chip);
+      });
+    }
+
+    function chooseCategory(category) {
+      activeCategory = category;
+      renderCategories();
+      renderResources();
+      sidebar.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+
+    function normalize(text) {
+      return text.toLocaleLowerCase("fr").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function renderResources() {
+      const query = normalize(searchInput.value.trim());
+      const language = languageFilter.value;
+      const level = levelFilter.value;
+
+      const filtered = resources.filter(item => {
+        const searchable = normalize([
+          item.name, item.category, item.description, item.language,
+          item.level, ...item.tags
+        ].join(" "));
+
+        return (activeCategory === "Toutes" || item.category === activeCategory)
+          && (!query || searchable.includes(query))
+          && (!language || item.language === language)
+          && (!level || item.level === level);
+      });
+
+      // J'ai remplacé le lien direct par VOTRE SMARTLINK (arwf.org)
+      // Ainsi, le clic sur "Visiter le site" vous rapportera de l'argent.
+      grid.innerHTML = filtered.map(item => `
+        <article class="card">
+          <div class="card-top">
+            <div class="resource-icon" aria-hidden="true">${item.icon}</div>
+            <span class="free-pill">✓ Accès gratuit</span>
+          </div>
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+          <div class="card-meta">
+            <span class="tag">${item.category}</span>
+            <span class="tag">${item.language}</span>
+            <span class="tag">${item.level}</span>
+            ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+          </div>
+          <a class="card-link" href="https://arwf.org/4/11be54fa8b8a1db174dac7f6be29fa5f" target="_blank" rel="noopener noreferrer">
+            Visiter le site <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+      `).join("");
+
+      resultCount.textContent = `${filtered.length} ressource${filtered.length === 1 ? "" : "s"}`;
+      emptyState.style.display = filtered.length ? "none" : "block";
+      grid.style.display = filtered.length ? "grid" : "none";
+      sectionTitle.textContent = activeCategory === "Toutes"
+        ? "Toutes les ressources"
+        : activeCategory;
+    }
+
+    searchInput.addEventListener("input", renderResources);
+    languageFilter.addEventListener("change", renderResources);
+    levelFilter.addEventListener("change", renderResources);
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = sidebar.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    renderCategories();
+    renderResources();
+  </script>
+
+  <!-- LES DEUX SCRIPTS POPUNDER SONT CACHÉS ICI TOUT EN BAS, SANS CASSER LE DESIGN -->
+  <script data-cfasync="false" src="https://afders.org/1/a3f3b70e7f41b3e48d2c9df2c48a0967"></script>
+  <script data-cfasync="false" src="https://bicea.org/14/8c6e1e2727c193d17ca775ee1f0109c6"></script>
+
+</body>
+</html>
+
